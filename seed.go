@@ -2,6 +2,7 @@ package seed
 
 import (
 	"crypto/cipher"
+	"errors"
 	"strconv"
 )
 
@@ -13,7 +14,7 @@ type seed128Cipher struct {
 type KeySizeError int
 
 func (k KeySizeError) Error() string {
-	return "github.com/geeksbaek/seed128: invalid key size " + strconv.Itoa(int(k))
+	return "github.com/geeksbaek/seed128: Invalid key size " + strconv.Itoa(int(k))
 }
 
 // NewCipher creates and returns a new cipher.Block.
@@ -21,10 +22,12 @@ func (k KeySizeError) Error() string {
 func NewCipher(key []byte) (cipher.Block, error) {
 	k := len(key)
 	switch k {
-	default:
-		return nil, KeySizeError(k)
 	case 16:
 		break
+	case 32:
+		return nil, errors.New("github.com/geeksbaek/seed128: Unsupported key size 32")
+	default:
+		return nil, KeySizeError(k)
 	}
 	return newCipherGeneric(key)
 }
