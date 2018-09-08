@@ -1,11 +1,11 @@
-package seed128_test
+package seed_test
 
 import (
 	"crypto/aes"
 	"crypto/cipher"
 	"testing"
 
-	seed "github.com/geeksbaek/seed128"
+	seed "github.com/geeksbaek/seed"
 )
 
 func benchmarkAESGCMSign(b *testing.B, buf []byte) {

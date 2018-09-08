@@ -1,11 +1,11 @@
-# seed128
+# seed
 
-[![Build Status](https://travis-ci.org/geeksbaek/seed128.svg?branch=master)](https://travis-ci.org/geeksbaek/seed128)
-[![codecov](https://codecov.io/gh/geeksbaek/seed128/branch/master/graph/badge.svg)](https://codecov.io/gh/geeksbaek/seed128)
-[![Go Report Card](https://goreportcard.com/badge/github.com/geeksbaek/seed128)](https://goreportcard.com/report/github.com/geeksbaek/seed128)
-[![GoDoc](https://godoc.org/github.com/geeksbaek/seed128?status.svg)](https://godoc.org/github.com/geeksbaek/seed128)
+[![Build Status](https://travis-ci.org/geeksbaek/seed.svg?branch=master)](https://travis-ci.org/geeksbaek/seed)
+[![codecov](https://codecov.io/gh/geeksbaek/seed/branch/master/graph/badge.svg)](https://codecov.io/gh/geeksbaek/seed)
+[![Go Report Card](https://goreportcard.com/badge/github.com/geeksbaek/seed)](https://goreportcard.com/report/github.com/geeksbaek/seed)
+[![GoDoc](https://godoc.org/github.com/geeksbaek/seed?status.svg)](https://godoc.org/github.com/geeksbaek/seed)
 
-This package is an implements SEED128 encryption with Go. The original source is [here](https://seed.kisa.or.kr/iwt/ko/bbs/EgovReferenceDetail.do?bbsId=BBSMSTR_000000000002&nttId=34).
+This package is an implements SEED encryption with Go. The original source is [here](https://seed.kisa.or.kr/iwt/ko/bbs/EgovReferenceDetail.do?bbsId=BBSMSTR_000000000002&nttId=34).
 
 ## What is SEED
 
@@ -28,7 +28,7 @@ import (
     "fmt"
     "io"
 
-    "github.com/geeksbaek/seed128"
+    "github.com/geeksbaek/seed"
 )
 
 func main() {
@@ -56,21 +56,21 @@ func main() {
 func encrypt(key []byte, message string) (encmess string, err error) {
     plainText := []byte(message)
 
-    block, err := seed128.NewCipher(key)
+    block, err := seed.NewCipher(key)
     if err != nil {
         return
     }
 
     // IV needs to be unique, but doesn't have to be secure.
     // It's common to put it at the beginning of the ciphertext.
-    cipherText := make([]byte, seed128.BlockSize+len(plainText))
-    iv := cipherText[:seed128.BlockSize]
+    cipherText := make([]byte, seed.BlockSize+len(plainText))
+    iv := cipherText[:seed.BlockSize]
     if _, err = io.ReadFull(rand.Reader, iv); err != nil {
         return
     }
 
     stream := cipher.NewCFBEncrypter(block, iv)
-    stream.XORKeyStream(cipherText[seed128.BlockSize:], plainText)
+    stream.XORKeyStream(cipherText[seed.BlockSize:], plainText)
 
     // returns to base64 encoded string
     encmess = base64.URLEncoding.EncodeToString(cipherText)
@@ -83,20 +83,20 @@ func decrypt(key []byte, securemess string) (decodedmess string, err error) {
         return
     }
 
-    block, err := seed128.NewCipher(key)
+    block, err := seed.NewCipher(key)
     if err != nil {
         return
     }
 
-    if len(cipherText) < seed128.BlockSize {
+    if len(cipherText) < seed.BlockSize {
         err = errors.New("Ciphertext block size is too short!")
         return
     }
 
     // IV needs to be unique, but doesn't have to be secure.
     // It's common to put it at the beginning of the ciphertext.
-    iv := cipherText[:seed128.BlockSize]
-    cipherText = cipherText[seed128.BlockSize:]
+    iv := cipherText[:seed.BlockSize]
+    cipherText = cipherText[seed.BlockSize:]
 
     stream := cipher.NewCFBDecrypter(block, iv)
     // XORKeyStream can work in-place if the two arguments are the same.

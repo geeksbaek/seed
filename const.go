@@ -1,5 +1,5 @@
-// Package seed128 is an implements SEED128 encryption with Go.
-package seed128
+// Package seed is an implements SEED128 encryption with Go.
+package seed
 
 // https://seed.kisa.or.kr/iwt/ko/bbs/EgovReferenceDetail.do?bbsId=BBSMSTR_000000000002&nttId=34
 

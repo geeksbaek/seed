@@ -1,4 +1,4 @@
-package seed128
+package seed
 
 // Common functions
 func getB0(a uint32) uint32 { return 0x000000ff & (a) }
