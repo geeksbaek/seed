@@ -1,4 +1,7 @@
+// Package seed128 is an implements SEED128 encryption with Go.
 package seed128
+
+// https://seed.kisa.or.kr/iwt/ko/bbs/EgovReferenceDetail.do?bbsId=BBSMSTR_000000000002&nttId=34
 
 var (
 	// S-box table
