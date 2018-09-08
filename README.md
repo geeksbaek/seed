@@ -17,7 +17,29 @@ On April 1, 2015 the Ministry of Science, ICT and Future Planning (MSIP) announc
 # Example
 
 ```go
-encrypt := func(key []byte, message string) (encmess string, err error) {
+func main() {
+    CIPHER_KEY := []byte("0123456789012345")
+    msg := "A quick brown fox jumped over the lazy dog."
+
+    if encrypted, err := encrypt(CIPHER_KEY, msg); err != nil {
+        log.Println(err)
+    } else {
+        log.Printf("CIPHER KEY: %s\n", string(CIPHER_KEY))
+        log.Printf("ENCRYPTED: %s\n", encrypted)
+
+        if decrypted, err := decrypt(CIPHER_KEY, encrypted); err != nil {
+            log.Println(err)
+        } else {
+            log.Printf("DECRYPTED: %s\n", decrypted)
+        }
+    }
+
+    // 2018/09/09 02:00:00 CIPHER KEY: 0123456789012345
+    // 2018/09/09 02:00:00 ENCRYPTED: 9VzqUQJh1JWmboAw_tfzzbHdaI8_53NHhBTFoNFPiPn4fqe_G44K0xQpYRyqRWAIp9ao-6OnTkJCh08=
+    // 2018/09/09 02:00:00 DECRYPTED: A quick brown fox jumped over the lazy dog.
+}
+
+func encrypt(key []byte, message string) (encmess string, err error) {
     plainText := []byte(message)
 
     block, err := seed128.NewCipher(key)
@@ -41,7 +63,7 @@ encrypt := func(key []byte, message string) (encmess string, err error) {
     return
 }
 
-decrypt := func(key []byte, securemess string) (decodedmess string, err error) {
+func decrypt(key []byte, securemess string) (decodedmess string, err error) {
     cipherText, err := base64.URLEncoding.DecodeString(securemess)
     if err != nil {
         return
@@ -69,25 +91,4 @@ decrypt := func(key []byte, securemess string) (decodedmess string, err error) {
     decodedmess = string(cipherText)
     return
 }
-
-CIPHER_KEY := []byte("0123456789012345")
-msg := "A quick brown fox jumped over the lazy dog."
-
-if encrypted, err := encrypt(CIPHER_KEY, msg); err != nil {
-    log.Println(err)
-} else {
-    log.Printf("CIPHER KEY: %s\n", string(CIPHER_KEY))
-    log.Printf("ENCRYPTED: %s\n", encrypted)
-
-    if decrypted, err := decrypt(CIPHER_KEY, encrypted); err != nil {
-        log.Println(err)
-    } else {
-        log.Printf("DECRYPTED: %s\n", decrypted)
-    }
-}
-
-// 2018/09/09 02:00:00 CIPHER KEY: 0123456789012345
-// 2018/09/09 02:00:00 ENCRYPTED: 9VzqUQJh1JWmboAw_tfzzbHdaI8_53NHhBTFoNFPiPn4fqe_G44K0xQpYRyqRWAIp9ao-6OnTkJCh08=
-// 2018/09/09 02:00:00 DECRYPTED: A quick brown fox jumped over the lazy dog.
-
 ```
