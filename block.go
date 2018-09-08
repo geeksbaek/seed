@@ -166,7 +166,6 @@ func seedEncrypt(pdwRoundKey []uint32, dst, src []byte) {
 	k[0] = pdwRoundKey[nCount]
 	nCount++
 	k[1] = pdwRoundKey[nCount]
-	nCount++
 	seedRound(&r0, &r1, &l0, &l1, &k) // 16
 
 	// Copying output values from last round to outData
@@ -457,7 +456,6 @@ func seedRoundKey(pbUserKey []byte, pdwRoundKey []uint32) {
 	pdwRoundKey[nCount] = k[0]
 	nCount++
 	pdwRoundKey[nCount] = k[1]
-	nCount++
 
 	return
 }
