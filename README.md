@@ -120,7 +120,7 @@ It is a benchmark against the aes algorithm on laptops with i5-8250u.
 ```text
 goos: windows
 goarch: amd64
-pkg: github.com/geeksbaek/seed128
+pkg: github.com/geeksbaek/seed
 BenchmarkAESGCMSeal1K-8                  3000000               385 ns/op        2654.00 MB/s
 BenchmarkSEED128GCMSeal1K-8                50000             27950 ns/op          36.64 MB/s
 BenchmarkAESGCMOpen1K-8                  5000000               325 ns/op        3146.80 MB/s
@@ -144,5 +144,5 @@ BenchmarkSEED128CBCEncrypt1K-8             50000             26059 ns/op        
 BenchmarkAESCBCDecrypt1K-8               1000000              2008 ns/op         509.95 MB/s
 BenchmarkSEED128CBCDecrypt1K-8             50000             24119 ns/op          42.45 MB/s
 PASS
-ok      github.com/geeksbaek/seed128    36.862s
+ok      github.com/geeksbaek/seed    36.862s
 ```
