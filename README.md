@@ -1,4 +1,5 @@
 # seed128
+
 [![Build Status](https://travis-ci.org/geeksbaek/seed128.svg?branch=master)](https://travis-ci.org/geeksbaek/seed128)
 [![codecov](https://codecov.io/gh/geeksbaek/seed128/branch/master/graph/badge.svg)](https://codecov.io/gh/geeksbaek/seed128)
 [![Go Report Card](https://goreportcard.com/badge/github.com/geeksbaek/seed128)](https://goreportcard.com/report/github.com/geeksbaek/seed128)
@@ -6,7 +7,7 @@
 
 This package is an implements SEED128 encryption with Go. The original source is [here](https://seed.kisa.or.kr/iwt/ko/bbs/EgovReferenceDetail.do?bbsId=BBSMSTR_000000000002&nttId=34).
 
-# What is SEED?
+## What is SEED
 
 SEED is a block cipher developed by the Korea Internet & Security Agency (KISA). It is used broadly throughout South Korean industry, but seldom found elsewhere. It gained popularity in Korea because 40-bit encryption was not considered strong enough, so the Korea Information Security Agency developed its own standard. However, this decision has historically limited the competition of web browsers in Korea, as no major SSL libraries or web browsers supported the SEED algorithm, requiring users to use an ActiveX control in Internet Explorer for secure web sites.
 
@@ -14,20 +15,20 @@ On April 1, 2015 the Ministry of Science, ICT and Future Planning (MSIP) announc
 
 [Read more from Wikipedia](https://en.wikipedia.org/wiki/SEED)
 
-# Example
+## Example
 
 ```go
 package main
 
 import (
-	"crypto/cipher"
-	"crypto/rand"
-	"encoding/base64"
-	"errors"
-	"fmt"
-	"io"
+    "crypto/cipher"
+    "crypto/rand"
+    "encoding/base64"
+    "errors"
+    "fmt"
+    "io"
 
-	"github.com/geeksbaek/seed128"
+    "github.com/geeksbaek/seed128"
 )
 
 func main() {
@@ -106,7 +107,7 @@ func decrypt(key []byte, securemess string) (decodedmess string, err error) {
 }
 ```
 
-# Benchmark
+## Benchmark
 
 It is a benchmark against the aes algorithm on laptops with i5-8250u.
 

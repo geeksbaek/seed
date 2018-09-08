@@ -149,9 +149,11 @@ var (
 	}
 )
 
+// BlockSize is The SEED128 block size in bytes.
+const BlockSize = 16
+
 const (
-	BlockSize = 16
-	// noRounds    = 16
-	// noRoundKeys = 32
-	// seedBlockLen = 128
+// noRounds    = 16
+// noRoundKeys = 32
+// seedBlockLen = 128
 )

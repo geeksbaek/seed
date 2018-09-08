@@ -9,12 +9,15 @@ type seed128Cipher struct {
 	pdwRoundKey []uint32
 }
 
+// KeySizeError is Invalid Key Size Error.
 type KeySizeError int
 
 func (k KeySizeError) Error() string {
 	return "github.com/geeksbaek/seed128: invalid key size " + strconv.Itoa(int(k))
 }
 
+// NewCipher creates and returns a new cipher.Block.
+// The key argument should be 16 bytes.
 func NewCipher(key []byte) (cipher.Block, error) {
 	k := len(key)
 	switch k {
