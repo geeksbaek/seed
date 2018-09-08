@@ -15,6 +15,12 @@ On April 1, 2015 the Ministry of Science, ICT and Future Planning (MSIP) announc
 
 [Read more from Wikipedia](https://en.wikipedia.org/wiki/SEED)
 
+## Declaration
+
+Currently, only 128-bit encryption is supported. 256-bit encryption is under preparation.
+
+Would you contribute?
+
 ## Example
 
 ```go
