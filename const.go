@@ -147,14 +147,9 @@ var (
 )
 
 const (
-	// Defining Endianness
-	little = false
-	big    = true
-	endian = big
-
 	// Constant Definitions
-	noRounds     = 16
-	noRoundKeys  = 32
-	BlockSize    = 16
-	seedBlockLen = 128
+	BlockSize = 16
+	// noRounds    = 16
+	// noRoundKeys = 32
+	// seedBlockLen = 128
 )

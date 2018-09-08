@@ -5,12 +5,6 @@ func getB0(a uint32) uint32 { return 0x000000ff & (a) }
 func getB1(a uint32) uint32 { return 0x000000ff & (a >> 8) }
 func getB2(a uint32) uint32 { return 0x000000ff & (a >> 16) }
 func getB3(a uint32) uint32 { return 0x000000ff & (a >> 24) }
-func endiansChange(dws *[]uint32) {
-	(*dws)[0] = (((*dws)[0]) >> 24) | ((*dws)[0] << 24) | (((*dws)[0] << 8) & 0x00ff0000) | ((((*dws)[0]) >> 8) & 0x0000ff00)
-}
-func endianChange(dws uint32) uint32 {
-	return ((dws) >> 24) | (dws << 24) | ((dws << 8) & 0x00ff0000) | (((dws) >> 8) & 0x0000ff00)
-}
 
 // SEED round function
 func seedRound(l0, l1, r0, r1, k *[]uint32) {
@@ -79,15 +73,6 @@ func seedEncrypt(pdwRoundKey []uint32, dst, src []byte) {
 	r1[0] = ((r1[0]) << 8) ^ (uint32(src[14]) & 0x000000ff)
 	r1[0] = ((r1[0]) << 8) ^ (uint32(src[15]) & 0x000000ff)
 
-	// Reorder for little endian
-	// Because java virtual machine use big endian order in default
-	if !endian {
-		endiansChange(&l0)
-		endiansChange(&l1)
-		endiansChange(&r0)
-		endiansChange(&r1)
-	}
-
 	k[0] = pdwRoundKey[nCount]
 	nCount++
 	k[1] = pdwRoundKey[nCount]
@@ -183,13 +168,6 @@ func seedEncrypt(pdwRoundKey []uint32, dst, src []byte) {
 	k[1] = pdwRoundKey[nCount]
 	nCount++
 	seedRound(&r0, &r1, &l0, &l1, &k) // 16
-
-	if !endian {
-		endiansChange(&l0)
-		endiansChange(&l1)
-		endiansChange(&r0)
-		endiansChange(&r1)
-	}
 
 	// Copying output values from last round to outData
 	for i := 0; i < 4; i++ {
@@ -228,14 +206,6 @@ func seedDecrypt(pdwRoundKey []uint32, dst []byte, src []byte) {
 	r1[0] = ((r1[0]) << 8) ^ (uint32(src[14]) & 0x000000ff)
 	r1[0] = ((r1[0]) << 8) ^ (uint32(src[15]) & 0x000000ff)
 
-	// Reorder for little endian
-	if !endian {
-		endiansChange(&l0)
-		endiansChange(&l1)
-		endiansChange(&r0)
-		endiansChange(&r1)
-	}
-
 	k[1] = pdwRoundKey[nCount]
 	nCount--
 	k[0] = pdwRoundKey[nCount]
@@ -330,13 +300,6 @@ func seedDecrypt(pdwRoundKey []uint32, dst []byte, src []byte) {
 	nCount--
 	k[0] = pdwRoundKey[nCount]
 	seedRound(&r0, &r1, &l0, &l1, &k) // 16
-
-	if !endian {
-		endiansChange(&l0)
-		endiansChange(&l1)
-		endiansChange(&r0)
-		endiansChange(&r1)
-	}
 
 	// Copy output values from last round to outData
 	for i := 0; i < 4; i++ {
@@ -397,14 +360,6 @@ func seedRoundKey(pbUserKey []byte, pdwRoundKey []uint32) {
 	d[0] = (d[0] << 8) ^ (uint32(pbUserKey[13]) & 0x000000ff)
 	d[0] = (d[0] << 8) ^ (uint32(pbUserKey[14]) & 0x000000ff)
 	d[0] = (d[0] << 8) ^ (uint32(pbUserKey[15]) & 0x000000ff)
-
-	// reorder for little endian
-	if !endian {
-		a[0] = endianChange(a[0])
-		b[0] = endianChange(b[0])
-		c[0] = endianChange(c[0])
-		d[0] = endianChange(d[0])
-	}
 
 	t0 = (a[0]) + (c[0]) - (kc[0])
 	t1 = (b[0]) - (d[0]) + (kc[0])
