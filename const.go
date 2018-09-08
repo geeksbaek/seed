@@ -147,7 +147,6 @@ var (
 )
 
 const (
-	// Constant Definitions
 	BlockSize = 16
 	// noRounds    = 16
 	// noRoundKeys = 32
