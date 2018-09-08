@@ -105,3 +105,37 @@ func decrypt(key []byte, securemess string) (decodedmess string, err error) {
     return
 }
 ```
+
+# Benchmark
+
+It is a benchmark against the aes algorithm on laptops with i5-8250u.
+
+```text
+goos: windows
+goarch: amd64
+pkg: github.com/geeksbaek/seed128
+BenchmarkAESGCMSeal1K-8                  3000000               385 ns/op        2654.00 MB/s
+BenchmarkSEED128GCMSeal1K-8                50000             27950 ns/op          36.64 MB/s
+BenchmarkAESGCMOpen1K-8                  5000000               325 ns/op        3146.80 MB/s
+BenchmarkSEED128GCMOpen1K-8                50000             27960 ns/op          36.62 MB/s
+BenchmarkAESGCMSign8K-8                  1000000              1179 ns/op        6945.05 MB/s
+BenchmarkSEED128GCMSign8K-8                30000             44199 ns/op         185.34 MB/s
+BenchmarkAESGCMSeal8K-8                  1000000              2095 ns/op        3909.31 MB/s
+BenchmarkSEED128GCMSeal8K-8                10000            234199 ns/op          34.98 MB/s
+BenchmarkAESGCMOpen8K-8                  1000000              2272 ns/op        3604.85 MB/s
+BenchmarkSEED128GCMOpen8K-8                 5000            247400 ns/op          33.11 MB/s
+BenchmarkAESCFBEncrypt1K-8                500000              2658 ns/op         383.37 MB/s
+BenchmarkSEED128CFBEncrypt1K-8             50000             24310 ns/op          41.92 MB/s
+BenchmarkAESCFBDecrypt1K-8                500000              2644 ns/op         385.26 MB/s
+BenchmarkSEED128CFBDecrypt1K-8             50000             24579 ns/op          41.46 MB/s
+BenchmarkAESOFB1K-8                      1000000              1795 ns/op         567.69 MB/s
+BenchmarkSEED128OFB1K-8                    50000             26129 ns/op          39.00 MB/s
+BenchmarkAESCTR1K-8                      1000000              1800 ns/op         565.80 MB/s
+BenchmarkSEED128CTR1K-8                    50000             22810 ns/op          44.67 MB/s
+BenchmarkAESCBCEncrypt1K-8                500000              2542 ns/op         402.67 MB/s
+BenchmarkSEED128CBCEncrypt1K-8             50000             26059 ns/op          39.29 MB/s
+BenchmarkAESCBCDecrypt1K-8               1000000              2008 ns/op         509.95 MB/s
+BenchmarkSEED128CBCDecrypt1K-8             50000             24119 ns/op          42.45 MB/s
+PASS
+ok      github.com/geeksbaek/seed128    36.862s
+```
