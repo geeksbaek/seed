@@ -17,6 +17,19 @@ On April 1, 2015 the Ministry of Science, ICT and Future Planning (MSIP) announc
 # Example
 
 ```go
+package main
+
+import (
+	"crypto/cipher"
+	"crypto/rand"
+	"encoding/base64"
+	"errors"
+	"fmt"
+	"io"
+
+	"github.com/geeksbaek/seed128"
+)
+
 func main() {
     CIPHER_KEY := []byte("0123456789012345")
     msg := "A quick brown fox jumped over the lazy dog."
