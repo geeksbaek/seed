@@ -361,7 +361,6 @@ func SeedEncrypt(pbData []byte, pdwRoundKey []int) (outData []byte) {
 	return
 }
 
-// Same as encrypt, except that round keys are applied in reverse order
 func SeedDecrypt(pbData []byte, pdwRoundKey []int) (outData []byte) {
 	l0, l1, r0, r1 := []int{0x0}, []int{0x0}, []int{0x0}, []int{0x0}
 	k := make([]int, 2)
@@ -532,7 +531,6 @@ func encRoundKeyUpdate1(k, a, b, c, d *[]int, z int) {
 	(*k)[1] = ss0[getB0(int(t11))] ^ ss1[getB1(int(t11))] ^ ss2[getB2(int(t11))] ^ ss3[getB3(int(t11))]
 }
 
-// Key Schedule
 func SeedRoundKey(pbUserKey []byte) (pdwRoundKey []int) {
 	a, b, c, d, k := make([]int, 1), make([]int, 1), make([]int, 1), make([]int, 1), make([]int, 2)
 	var t0, t1 int
