@@ -38,20 +38,26 @@ import (
 )
 
 func main() {
-    CIPHER_KEY := []byte("0123456789012345")
+    cipherKey := []byte("0123456789012345")
     msg := "A quick brown fox jumped over the lazy dog."
 
-    if encrypted, err := encrypt(CIPHER_KEY, msg); err != nil {
-        fmt.Println(err)
-    } else {
-        fmt.Printf("CIPHER KEY: %s\n", string(CIPHER_KEY))
-        fmt.Printf("ENCRYPTED: %s\n", encrypted)
+    encrypted, err := encrypt(cipherKey, msg)
+    if err != nil {
+        panic(err)
+    }
 
-        if decrypted, err := decrypt(CIPHER_KEY, encrypted); err != nil {
-            fmt.Println(err)
-        } else {
-            fmt.Printf("DECRYPTED: %s\n", decrypted)
-        }
+    fmt.Printf("CIPHER KEY: %s\n", string(cipherKey))
+    fmt.Printf("ENCRYPTED: %s\n", encrypted)
+
+    decrypted, err := decrypt(cipherKey, encrypted)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Printf("DECRYPTED: %s\n", decrypted)
+
+    if msg != decrypted {
+        panic("do not match msg and decrypted")
     }
 
     // CIPHER KEY: 0123456789012345
