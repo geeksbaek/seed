@@ -46,7 +46,7 @@ func main() {
         panic(err)
     }
 
-    fmt.Printf("CIPHER KEY: %s\n", string(cipherKey))
+    fmt.Printf("CIPHER KEY: %s\n", cipherKey)
     fmt.Printf("ENCRYPTED: %s\n", encrypted)
 
     decrypted, err := decrypt(cipherKey, encrypted)
@@ -101,7 +101,7 @@ func decrypt(key []byte, securemess string) (decodedmess string, err error) {
     }
 
     if len(cipherText) < seed.BlockSize {
-        err = errors.New("Ciphertext block size is too short!")
+        err = errors.New("Ciphertext block size is too short")
         return
     }
 
