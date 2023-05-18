@@ -314,8 +314,8 @@ func seedDecrypt(pdwRoundKey []uint32, dst []byte, src []byte) {
 func encRoundKeyUpdate0(k, a, b, c, d *[]uint32, z int) {
 	var t0, _, t00, t11 uint32
 	t0 = (*a)[0]
-	(*a)[0] = (((*a)[0]) >> 8) ^ ((*b)[0] << 24)
-	(*b)[0] = (((*b)[0]) >> 8) ^ (t0 << 24)
+	(*a)[0] = ((((*a)[0]) >> 8) & 0x00ffffff) ^ ((*b)[0] << 24)
+	(*b)[0] = ((((*b)[0]) >> 8) & 0x00ffffff) ^ (t0 << 24)
 	t00 = ((*a)[0]) + ((*c)[0]) - (kc[z])
 	t11 = ((*b)[0]) + (kc[z]) - ((*d)[0])
 	(*k)[0] = ss0[getB0(uint32(t00))] ^ ss1[getB1(uint32(t00))] ^ ss2[getB2(uint32(t00))] ^ ss3[getB3(uint32(t00))]
@@ -325,8 +325,8 @@ func encRoundKeyUpdate0(k, a, b, c, d *[]uint32, z int) {
 func encRoundKeyUpdate1(k, a, b, c, d *[]uint32, z int) {
 	var t0, _, t00, t11 uint32
 	t0 = (*c)[0]
-	(*c)[0] = (((*c)[0]) >> 8) ^ ((*d)[0] << 24)
-	(*d)[0] = (((*d)[0]) >> 8) ^ (t0 << 24)
+	(*c)[0] = (((*c)[0]) << 8) ^ ((((*d)[0]) >> 24) & 0x000000ff)
+	(*d)[0] = (((*d)[0]) << 8) ^ ((t0 >> 24) & 0x000000ff)
 	t00 = ((*a)[0]) + ((*c)[0]) - (kc[z])
 	t11 = ((*b)[0]) + (kc[z]) - ((*d)[0])
 	(*k)[0] = ss0[getB0(uint32(t00))] ^ ss1[getB1(uint32(t00))] ^ ss2[getB2(uint32(t00))] ^ ss3[getB3(uint32(t00))]
