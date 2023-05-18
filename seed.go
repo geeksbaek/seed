@@ -35,7 +35,7 @@ func NewCipher(key []byte) (cipher.Block, error) {
 func newCipherGeneric(key []byte) (cipher.Block, error) {
 	n := len(key) + 28
 	c := seed128Cipher{make([]uint32, n)}
-	seedRoundKey(key, c.pdwRoundKey)
+	c.pdwRoundKey = seedRoundKey(key)
 	return &c, nil
 }
 

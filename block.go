@@ -334,7 +334,7 @@ func encRoundKeyUpdate1(k, a, b, c, d *[]uint32, z int) {
 }
 
 // Key Schedule
-func seedRoundKey(pbUserKey []byte, pdwRoundKey []uint32) {
+func seedRoundKey(pbUserKey []byte) []uint32 {
 	a, b, c, d, k := make([]uint32, 1), make([]uint32, 1), make([]uint32, 1), make([]uint32, 1), make([]uint32, 2)
 	var t0, t1 uint32
 	nCount := 2
@@ -363,7 +363,7 @@ func seedRoundKey(pbUserKey []byte, pdwRoundKey []uint32) {
 	t0 = (a[0]) + (c[0]) - (kc[0])
 	t1 = (b[0]) - (d[0]) + (kc[0])
 
-	pdwRoundKey = make([]uint32, 32)
+	pdwRoundKey := make([]uint32, 32)
 
 	pdwRoundKey[0] = ss0[getB0(uint32(t0))] ^ ss1[getB1(uint32(t0))] ^ ss2[getB2(uint32(t0))] ^ ss3[getB3(uint32(t0))]
 	pdwRoundKey[1] = ss0[getB0(uint32(t1))] ^ ss1[getB1(uint32(t1))] ^ ss2[getB2(uint32(t1))] ^ ss3[getB3(uint32(t1))]
@@ -457,5 +457,5 @@ func seedRoundKey(pbUserKey []byte, pdwRoundKey []uint32) {
 	nCount++
 	pdwRoundKey[nCount] = k[1]
 
-	return
+	return pdwRoundKey
 }
