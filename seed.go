@@ -2,6 +2,7 @@ package seed
 
 import (
 	"crypto/cipher"
+	// "crypto/subtle"
 	"errors"
 	"strconv"
 )
